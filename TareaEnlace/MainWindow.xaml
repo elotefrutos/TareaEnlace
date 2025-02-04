@@ -1,0 +1,36 @@
+﻿<Window x:Class="TareaEnlace.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TareaEnlace"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text="Nombre:" Grid.Row="0" Grid.Column="0" Margin="5"/>
+        <TextBox Name="txtNombre" Grid.Row="0" Grid.Column="1" Margin="5" TextChanged="ActualizarEstadoBoton"/>
+
+        <TextBlock Text="Teléfono:" Grid.Row="1" Grid.Column="0" Margin="5"/>
+        <TextBox Name="txtTelefono" Grid.Row="1" Grid.Column="1" Margin="5" TextChanged="ActualizarEstadoBoton"/>
+
+        <TextBlock Text="Vista Nombre:" Grid.Row="2" Grid.Column="0" Margin="5"/>
+        <TextBlock Name="lblNombre" Grid.Row="2" Grid.Column="1" Margin="5" Text=""/>
+
+        <TextBlock Text="Vista Teléfono:" Grid.Row="3" Grid.Column="0" Margin="5"/>
+        <TextBlock Name="lblTelefono" Grid.Row="3" Grid.Column="1" Margin="5" Text=""/>
+
+        <Button Name="btnGuardar" Content="Guardar" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" Click="GuardarEnXML" IsEnabled="False"/>
+    </Grid>
+</Window>
