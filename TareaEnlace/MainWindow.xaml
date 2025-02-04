@@ -20,17 +20,17 @@
         </Grid.ColumnDefinitions>
 
         <TextBlock Text="Nombre:" Grid.Row="0" Grid.Column="0" Margin="5"/>
-        <TextBox Name="txtNombre" Grid.Row="0" Grid.Column="1" Margin="5" TextChanged="ActualizarEstadoBoton"/>
+        <TextBox Name="txtNombre" Grid.Row="0" Grid.Column="1" Margin="5" Text="{Binding Nombre, UpdateSourceTrigger=PropertyChanged}"/>
 
         <TextBlock Text="Teléfono:" Grid.Row="1" Grid.Column="0" Margin="5"/>
-        <TextBox Name="txtTelefono" Grid.Row="1" Grid.Column="1" Margin="5" TextChanged="ActualizarEstadoBoton"/>
+        <TextBox Name="txtTelefono" Grid.Row="1" Grid.Column="1" Margin="5" Text="{Binding Telefono, UpdateSourceTrigger=PropertyChanged}"/>
 
         <TextBlock Text="Vista Nombre:" Grid.Row="2" Grid.Column="0" Margin="5"/>
-        <TextBlock Name="lblNombre" Grid.Row="2" Grid.Column="1" Margin="5" Text=""/>
+        <TextBlock Grid.Row="2" Grid.Column="1" Margin="5" Text="{Binding Nombre}"/>
 
         <TextBlock Text="Vista Teléfono:" Grid.Row="3" Grid.Column="0" Margin="5"/>
-        <TextBlock Name="lblTelefono" Grid.Row="3" Grid.Column="1" Margin="5" Text=""/>
+        <TextBlock Grid.Row="3" Grid.Column="1" Margin="5" Text="{Binding Telefono}"/>
 
-        <Button Name="btnGuardar" Content="Guardar" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" Click="GuardarEnXML" IsEnabled="False"/>
+        <Button Content="Guardar" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" Click="GuardarEnXML" IsEnabled="{Binding PuedeGuardar}"/>
     </Grid>
 </Window>
