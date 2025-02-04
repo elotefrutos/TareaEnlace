@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -20,42 +21,33 @@ namespace TareaEnlace
     /// <summary>
     /// Lógica de interacción para MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
+        private string nombre, telefono;
+        public string Nombre { get => nombre; set { nombre = value; OnPropertyChanged(); OnPropertyChanged(nameof(PuedeGuardar)); } }
+        public string Telefono { get => telefono; set { telefono = value; OnPropertyChanged(); OnPropertyChanged(nameof(PuedeGuardar)); } }
+        public bool PuedeGuardar => !string.IsNullOrWhiteSpace(Nombre) && !string.IsNullOrWhiteSpace(Telefono);
+
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-        private void ActualizarEstadoBoton(object sender, RoutedEventArgs e)
-        {
-            lblNombre.Text = txtNombre.Text;
-            lblTelefono.Text = txtTelefono.Text;
-            btnGuardar.IsEnabled = !string.IsNullOrWhiteSpace(txtNombre.Text) && !string.IsNullOrWhiteSpace(txtTelefono.Text);
+            DataContext = this;
         }
 
         private void GuardarEnXML(object sender, RoutedEventArgs e)
         {
-            XElement contacto = new XElement("Contacto",
-                new XElement("Nombre", txtNombre.Text),
-                new XElement("Telefono", txtTelefono.Text)
-            );
-
             string rutaArchivo = "contactos.xml";
-            XDocument doc;
-
-            if (File.Exists(rutaArchivo))
-            {
-                doc = XDocument.Load(rutaArchivo);
-                doc.Root.Add(contacto);
-            }
-            else
-            {
-                doc = new XDocument(new XElement("Contactos", contacto));
-            }
-
+            XDocument doc = File.Exists(rutaArchivo) ? XDocument.Load(rutaArchivo) : new XDocument(new XElement("Contactos"));
+            doc.Root.Add(new XElement("Contacto", new XElement("Nombre", Nombre), new XElement("Telefono", Telefono)));
             doc.Save(rutaArchivo);
             MessageBox.Show("Contacto guardado exitosamente.", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
+            Nombre = Telefono = string.Empty;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
